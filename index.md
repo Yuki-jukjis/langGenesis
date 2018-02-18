@@ -19,9 +19,8 @@
 
 以下の例文では文字列（リスト）の置換関数を定義し、それを使っている。  
 
-```  
-kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
-```  
+
+> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
 
 ## 課題についての考察  
 
@@ -51,11 +50,9 @@ kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa
 
 ## 文法  
 
-以下に例文を再度掲載する。  
+以下に例文を再掲する。  
 
-```  
-kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
-```  
+> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
 
 これは架空言語風の見た目になるよう、単語を置き換えているが、以下の文法解説では扱いやすいよう、英単語やASCII文字に直したものを使う。  
 以下に示すのが、例文で使用した単語と、読みやすく置き換えるための対応である。  
@@ -95,7 +92,8 @@ kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa
 |bast	|replace	|  
 |midj	|main	|  
 
-引数  
+引数
+
 |例文での表記 |解説での表記 |  
 |---	|---	|  
 |dat	| a / x	|  
@@ -135,7 +133,7 @@ main = replace "abcdef" "bcd" "xyz" ;
 - a b : c :: d  
   - (a (b (c d)))  
 
-*$* をトークンの間に挟むと、両隣のトークンの結合を弱めることができる。また、|は **右結合** である。（これは専らifのための糖衣構文である）  
+*$* をトークンの間に挟むと、両隣のトークンの結合を弱めることができる。また、*$* は **右結合** である。（これは専らifのための糖衣構文である）  
 
 - a $ b c  
   - (a (b c))  
