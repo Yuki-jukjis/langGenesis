@@ -5,7 +5,7 @@
 
 * [今回のお題](#今回のお題)
 * [作ろうとしたもの](#作ろうとしたもの)  
-* [例文](#例文)  
+* [神話（部分）](#神話（部分）)  
 * [課題についての考察](#課題についての考察)  
 * [文法](#文法)  
 * [作りたかった創世神話の仕様](#作りたかった創世神話の仕様)  
@@ -20,12 +20,11 @@
 この課題で架空言語を期待していた者には申し訳ないが、今回私が<s>作った</s>作ろうとした言語はプログラミング言語だ。  
 関数指向のプログラミング言語を作り、Eval関数（その言語自身を実行できるエミュレータ）とQuine関数（そのプログラム自身を出力するプログラム）をその言語で実装すれば、そのプログラムが創世神話になるのではないかと考えた。  
 
-## 例文  
+## 神話（部分）  
 
-以下の例文では文字列（リスト）の置換関数を定義し、それを使っている。  
+以下の節では文字列（リスト）の置換関数を定義し、Quine関数（すなわち神話自身）を定義している。  
 
-
-> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
+> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog ".." prog. prog li "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li "".."".".
 
 ## 課題についての考察  
 
@@ -55,9 +54,9 @@
 
 ## 文法  
 
-以下に例文を再掲する。  
+以下に冒頭のQuine関数を再掲する。これに基づいて文法を解説する。  
 
-> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. midj li bast "abcdef" "bcd" "xyz".  
+> kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog ".." prog. prog li "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li "".."".".
 
 これは架空言語風の見た目になるよう、単語を置き換えているが、以下の文法解説では扱いやすいよう、英単語やASCII文字に直したものを使う。  
 以下に示すのが、例文で使用した単語と、読みやすく置き換えるための対応である。  
@@ -95,7 +94,8 @@
 |farl	|drop	|  
 |mapt	|match	|  
 |bast	|replace	|  
-|midj	|main	|  
+|quin	|quine	|  
+|prog   |program	|
 
 引数
 
@@ -114,7 +114,9 @@ join x y = if empty : x y $ push head : x join : tail :: x : y ;
 drop x y = if empty : x y $ drop tail : x tail : y ;  
 match x y = if empty : x True $ if empty : y Nil $ if equal : head :: x : head :: y match : tail :: x : tail :: y Nil ;  
 replace a b x = if empty : x Nil $ if empty : a x $ if match : a : x join : b : replace :: a :: b :: drop ::: a ::: x $ push head : x replace : a : b : tail :: x ;  
-main = replace "abcdef" "bcd" "xyz" ;  
+quine = replace program ".." program ;  
+
+program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li ""..""." ;
 ```  
 
 以下ではこの記法を基準に解説をする。  
@@ -157,13 +159,10 @@ match x y =
     if (empty x) True  
   ( if (empty y) Nil  
   ( if (equal (head x) (head y)) (match (tail x) (tail y))  
-       Nil )) ;  
-replace a b x =  
-    if (empty x) Nil  
-  ( if (empty a) x  
-  ( if (match a x) (join b (replace a b (drop a x)))  
-       (push (head x) (replace a b (tail x))) )) ;  
-main = replace "abcdef" "bcd" "xyz" ;  
+       Nil )) ;
+quine = replace program ".." program ;  
+
+program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li ""..""." ;  
 ```  
 
 複数の引数をとる関数に値を渡すと、その関数の一つ目の引数にその値を渡し、引数に（元の関数の）二つ目以降の引数をとる、新たな関数が返される（カリー化）。  
@@ -208,8 +207,12 @@ replace a b x
   | empty a = x  
   | match a x = join b (replace a b (drop a x))  
   | otherwise = push (head x) (replace a b (tail x))  
-main = replace "abcdef" "bcd" "xyz"  
+quine = replace program ".." program
+
+program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog \"..\" prog. prog li \"..\"." ;
 ```  
+
+こうして、program（文中ではprog）の定義中に表れる..をprogram自体で置換することによって、quine関数（文中ではquin）は、元のプログラムと同じ文字列を出力することができる。
 
 
 ## 作りたかった創世神話の仕様  
