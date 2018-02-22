@@ -106,14 +106,26 @@
 |dit	| x	|  
 
 以上の単語の定義に従って例文を置換すると以下のようになる。  
-読みやすいよう、文（関数定義）ごとに改行を入れている。  
+読みやすいよう、改行を入れている。  
 
 ```  
 empty x = equal y Nil ;  
-join x y = if empty : x y $ push head : x join : tail :: x : y ;  
-drop x y = if empty : x y $ drop tail : x tail : y ;  
-match x y = if empty : x True $ if empty : y Nil $ if equal : head :: x : head :: y match : tail :: x : tail :: y Nil ;  
-replace a b x = if empty : x Nil $ if empty : a x $ if match : a : x join : b : replace :: a :: b :: drop ::: a ::: x $ push head : x replace : a : b : tail :: x ;  
+join x y =
+    if empty : x y
+  $ push head : x join : tail :: x : y ;  
+drop x y =
+    if empty : x y
+  $ drop tail : x tail : y ;  
+match x y =
+    if empty : x True
+  $ if empty : y Nil
+  $ if equal : head :: x : head :: y match : tail :: x : tail :: y
+    Nil ;  
+replace a b x =
+    if empty : x Nil
+  $ if empty : a x
+  $ if match : a : x join : b : replace :: a :: b :: drop ::: a ::: x
+  $ push head : x replace : a : b : tail :: x ;  
 quine = replace program ".." program ;  
 
 program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li ""..""." ;
@@ -218,7 +230,7 @@ program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba drun
 ## 作りたかった創世神話の仕様  
 
 言語(Eval)関数は第一引数に環境文字列（プログラム全体を示す文字列）を、第二引数に式を取り、以上の文法に従って式を評価し、式に対応する値を返す。  
-例えば第一引数に冒頭の例文全体を与え、第二引数に"midj"を渡すと、"axyzef"を返す。  
+例えば第一引数に冒頭の例文全体を与え、第二引数に*bast "abcdef" "bcd" "xyz"*を渡すと、*axyzef*を返す。  
 式を評価する際、基本は遅延評価を行うが、一部の組み込み関数（if関数の第一引数など）は渡された時点で計算をする。  
 また、メモ化（引数と結果の対応を保存し、二回目以降の計算を省略すること）は行わない。  
 
