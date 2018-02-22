@@ -172,6 +172,10 @@ match x y =
   ( if (empty y) Nil  
   ( if (equal (head x) (head y)) (match (tail x) (tail y))  
        Nil )) ;
+replace a b x =
+    if (empty x) Nil
+  ( if (empty a) x
+  ( if (match a x) (join b (replace a b (drop a x)))
 quine = replace program ".." program ;  
 
 program = "kunt dat li karta dat nee. jorn dat det li go kunt sa dat det ba druntu puski sa dat jorn sa nenki se dat sa det. farl dat det li go kunt sa dat det ba farl nenki sa dat nenki sa det. mapt dat det li go kunt sa dat yaa ba go kunt sa det nee ba go karta sa puski se dat sa puski se det mapt sa nenki se dat sa nenki se det nee. bast dat det dit li go kunt sa dit nee ba go kunt sa dat dit ba go mapt sa dat sa dit jorn sa det sa bast se dat se det se farl so dat so dit ba druntu puski sa dit bast sa dat sa det sa nenki se dit. quin li bast prog "".."" prog. prog li ""..""." ;  
